@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Formulario de Login con Iconos</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-4 offset-md-4">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="text-center"><i class="fas fa-user"></i> Iniciar Sesión</h3>
+            </div>
+            <div class="card-body">
+              <form id="loginForm">
+                <div class="form-group">
+                  <label for="email"><i class="fas fa-envelope"></i> Correo Electrónico</label>
+                  <input type="email" class="form-control" id="email" placeholder="Ingresa tu correo electrónico">
+                </div>
+                <div class="form-group">
+                  <label for="password"><i class="fas fa-lock"></i> Contraseña</label>
+                  <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña">
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</button>
+                </div>
+                <br>
+              </form>
+              <div class="text-center">
+                <button class="btn btn-primary" id="recordar"> <i class="fas fa-key"></i> Recordar Contraseña</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="src/js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </body>
+</html>
