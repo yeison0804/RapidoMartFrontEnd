@@ -1,3 +1,4 @@
+//consumo servicio de login obteniendo los datos del formulario
 document.addEventListener('DOMContentLoaded', function () {
     const loginForm = document.getElementById('loginForm');
     
@@ -36,11 +37,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 Swal.fire({
                     icon: 'success',
                     title: 'Éxito',
-                    text: 'Inicio de sesión exitoso.'
+                    text: 'Inicio de sesión exitoso.' + data.nombre
                 }).then(() => {
                     // Redireccionar después de cerrar la notificación
                     window.location.href = 'productos.html';
                 });
+
+
             }
            
         })
@@ -51,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-
+//consumo servicio de envoar correo de recordar contraseña obteniendo los datos del formulario
 const recordarButton = document.getElementById('recordar');
 
 recordarButton.addEventListener('click', function (e) {
@@ -78,16 +81,88 @@ recordarButton.addEventListener('click', function (e) {
     })
     .then(response => response.json())
     .then(data => {
+        if (data.mensaje.includes("Ok")) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Info',
+                text: data.mensaje
+            }).then(() => {
+                // Redireccionar después de cerrar la notificación
+                var valorOtroInput = document.getElementById('email').value;
+            
+                // Asigna el valor del otro input al input de correo electrónico
+                document.getElementById('emailR').value = valorOtroInput;
+                $('#exampleModal').modal('show');
+            });
+        }
+        if (data.mensaje.includes("Error")) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Info',
+                text: data.mensaje
+            });
+        }
        
-        Swal.fire({
-            icon: 'warning',
-            title: 'Info',
-            text: data.mensaje
-        });
+  
        
     })
     .catch(error => {
         console.error('Error al consumir el servicio', error);
     });
+});
+
+
+
+////consumo servicio validar codigo obteniendo los datos del formulario
+document.addEventListener('DOMContentLoaded', function () {
+    const validarCodigoForm = document.getElementById('validarCodigoForm');
+    
+    validarCodigoForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        
+        const correo = document.getElementById('emailR').value;
+        const codigo = document.getElementById('codigoR').value;
+        if (correo.trim() === '' || codigo.trim() === '') {
+          
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Por favor, completa todos los campos.'
+            });
+            return; // No se envía la solicitud si los campos están vacíos
+        }
+        // Realizar la solicitud al servicio web (aquí asumimos que el servicio está en 'https://example.com/login')
+        fetch('http://localhost:9090/usuario/validarcodigo', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ correo, codigo })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.mensaje.includes("Ok")) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Info',
+                text: data.mensaje
+            }).then(() => {
+                window.location.href = 'actualizarcontrasena.html';
+            });
+        }
+        if (data.mensaje.includes("Error")) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Info',
+                text: data.mensaje
+            });
+        }
+           
+        })
+        .catch(error => {
+            console.error('Error al iniciar sesión:', error);
+        });
+    });
+
 });
 
